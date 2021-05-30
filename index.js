@@ -1,11 +1,4 @@
 const express = require('express')
-const dotenv = require('dotenv')
-const result = dotenv.config()
-if (result.error) {
-  throw result.error
-}
-// console.log(result.parsed)
-
 const port = process.env.SERVER_PORT;
 const env = process.env.SERVER_ENV;
 
