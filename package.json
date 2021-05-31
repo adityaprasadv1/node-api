@@ -13,6 +13,8 @@
   "author": "Adi",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.17.1"
+    "express": "^4.17.1",
+    "express-jwt": "^6.0.0",
+    "jwks-rsa": "^2.0.3"
   }
 }
