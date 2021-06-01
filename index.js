@@ -31,6 +31,13 @@ app.get("/", (req, res) => {
   });
 });
 
+// Protected API
+app.get("/protected", authorizeAccessToken, (req, res) => {
+  res.send({
+    message: "Protected api, authorized only!",
+  });
+});
+
 app.listen(port, () => {
   console.log(`Listening at ${port} in ${env}`);
 });
