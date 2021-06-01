@@ -1,12 +1,11 @@
 const express = require("express");
+const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
 
 const port = process.env.PORT;
 const env = process.env.SERVER_ENV;
 const issuerBaseUrl = process.env.ISSUER_BASE_URL;
-
-const app = express();
 
 const authorizeAccessToken = jwt({
   secret: jwks.expressJwtSecret({
@@ -19,6 +18,10 @@ const authorizeAccessToken = jwt({
   issuer: `${issuerBaseUrl}/`,
   algorithms: ["RS256"],
 });
+
+const app = express();
+
+app.use(helmet());
 
 app.get("/", authorizeAccessToken, (req, res) => {
   res.send({
