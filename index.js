@@ -23,7 +23,8 @@ const app = express();
 
 app.use(helmet());
 
-app.get("/", authorizeAccessToken, (req, res) => {
+// Public API
+app.get("/", (req, res) => {
   res.send({
     version: "0.0.1",
     message: "Hello Client, Server here!",
