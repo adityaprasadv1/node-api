@@ -20,7 +20,8 @@ const authorizeAccessToken = jwt({
   algorithms: ["RS256"],
 });
 
-const authorizePermission = jwtAuthz(["read:home"]);
+const options = { customScopeKey: "permissions" };
+const authorizePermission = jwtAuthz(["read:home"], options);
 
 const app = express();
 
