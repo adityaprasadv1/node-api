@@ -21,7 +21,7 @@ const authorizeAccessToken = jwt({
 });
 
 const options = { customScopeKey: "permissions" };
-const authorizePermission = jwtAuthz(["read:home"], options);
+const authorizePermission = jwtAuthz(["api:admin"], options);
 
 const app = express();
 
