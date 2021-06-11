@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
@@ -24,6 +25,7 @@ const authorizePermission = jwtAuthz(["read:home"]);
 const app = express();
 
 app.use(helmet());
+app.use(cors());
 
 // Public API
 app.get("/", (req, res) => {
