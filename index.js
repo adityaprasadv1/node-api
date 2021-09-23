@@ -57,7 +57,7 @@ app.get("/quote", (req, res) => {
     axios(url).then((response) => {
       const html = response.data;
       const $ = cheerio.load(html);
-      console.log($);
+      console.log(response);
       const quote = $(QuoteSelector).html().trim();
       return res.status(200).json({
         date,
