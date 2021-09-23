@@ -51,15 +51,21 @@ app.get("/quote", (req, res) => {
     /^((january|february|march|april|may|june|july|august|september|october|november|december)-(0[1-9]|[12]\d|3[01])-[12]\d{3})$/;
 
   if (datePattern.test(date)) {
-    axios(url).then((response) => {
-      const html = response.data;
-      const $ = cheerio.load(html);
-      const quote = $(QuoteSelector).html().trim();
-      return res.status(200).json({
-        date,
-        quote,
-      });
-    });
+    axios(url)
+      .then((response) => {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        const quote = $(QuoteSelector).html().trim();
+        return res.status(200).json({
+          date,
+          quote,
+        });
+      })
+      .error(() =>
+        res.status(500).json({
+          message: "request to server failed",
+        })
+      );
   } else {
     return res.status(400).json({
       message: "date parameter not valid",
