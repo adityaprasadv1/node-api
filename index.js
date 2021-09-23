@@ -61,7 +61,7 @@ app.get("/quote", (req, res) => {
           quote,
         });
       })
-      .error(() =>
+      .catch(() =>
         res.status(500).json({
           message: "request to server failed",
         })
