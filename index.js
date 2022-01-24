@@ -45,8 +45,7 @@ app.get("/", (req, res) => {
 app.get("/quote", (req, res) => {
   // date=september-21-2021
   const date = req.query.date;
-  const url = QuoteBaseUrl + `?date=${date}`;
-
+  const url = QuoteBaseUrl + `/${date}`;
   const datePattern =
     /^((january|february|march|april|may|june|july|august|september|october|november|december)-(0[1-9]|[12]\d|3[01])-[12]\d{3})$/;
 
@@ -54,21 +53,22 @@ app.get("/quote", (req, res) => {
     console.log(url);
     console.log(QuoteSelector);
 
-    axios(url).then((response) => {
-      const html = response.data;
-      const $ = cheerio.load(html);
-      console.log(response);
-      const quote = $(QuoteSelector).html().trim();
-      return res.status(200).json({
-        date,
-        quote,
-      });
-    });
-    // .catch((error) =>
-    //   res.status(500).json({
-    //     message: error,
-    //   })
-    // );
+    axios(url)
+      .then((response) => {
+        const html = response.data;
+        const $ = cheerio.load(html);
+        console.log($(QuoteSelector).html().trim());
+        const quote = $(QuoteSelector).html().trim();
+        return res.status(200).json({
+          date,
+          quote,
+        });
+      })
+      .catch((error) =>
+        res.status(500).json({
+          message: error,
+        })
+      );
   } else {
     return res.status(400).json({
       message: "date parameter not valid",
