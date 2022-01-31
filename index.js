@@ -1,4 +1,6 @@
 const express = require("express");
+const { graphqlHTTP } = require("express-graphql");
+const { buildSchema } = require("graphql");
 const cors = require("cors");
 const helmet = require("helmet");
 const jwt = require("express-jwt");
@@ -28,10 +30,30 @@ const authorizeAccessToken = jwt({
 const options = { customScopeKey: "permissions" };
 const authorizePermission = jwtAuthz(["api:admin"], options);
 
+const schema = buildSchema(`
+  type Query {
+    hello: String
+  }
+`);
+
+const resolvers = {
+  hello: () => "Hello world!",
+};
+
 const app = express();
 
 app.use(helmet());
 app.use(cors());
+
+// GraphQL API
+app.use(
+  "/graphql",
+  graphqlHTTP({
+    schema,
+    rootValue: resolvers,
+    graphiql: true,
+  })
+);
 
 // Public API
 app.get("/", (req, res) => {
