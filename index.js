@@ -42,7 +42,34 @@ const resolvers = {
 
 const app = express();
 
-app.use(helmet());
+app.use(
+  helmet({
+    contentSecurityPolicy: false,
+  })
+);
+app.use(
+  helmet.contentSecurityPolicy({
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-eval'",
+        "'sha256-dPTixT5RV0MaHwkHXbrPucUY5LMChKMmDlpH1RL8SoA='",
+        "'sha256-hQ+Q7rQmBisyaau7M1CHR11Q413kMUpYoTSVdXlgzLM='",
+        "'sha256-HlNgqwkvTNoQqMCFRai8lszKmMjDG8gk5MsvxMrSrPs='",
+        "'sha256-g+UP/vt9mFqolp4Cub83kTo3tCFSrr4HGdkDDILeKlU='",
+        "'sha256-K/P4vySSqAL7Jr8YdHhzMcc45ilQnfENZTH5hN+mrI4='",
+        "'sha256-yl6bksMOnBDEarIhlOKXAsJ4uKcIsFCIF9/B1d2eijs='",
+        "http://localhost:5000/unfetch.umd.js.map",
+      ],
+      styleSrc: [
+        "'sha256-V0UyiQHqFDE5wbdbh2pF2po6spi3uBNG0LVgNav5Cb8='",
+        "'sha256-EbykEYX2PKg+68rjjcGnQneocvc1RKr7BGbi1DExwzo='",
+      ],
+    },
+    reportOnly: true,
+  })
+);
 app.use(cors());
 
 // GraphQL API
