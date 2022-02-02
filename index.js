@@ -32,12 +32,12 @@ const authorizePermission = jwtAuthz(["api:admin"], options);
 
 const schema = buildSchema(`
   type Query {
-    hello: String
+    version: String
   }
 `);
 
 const resolvers = {
-  hello: () => "Hello world!",
+  version: () => "0.0.1",
 };
 
 const app = express();
@@ -67,7 +67,6 @@ app.use(
         "'sha256-EbykEYX2PKg+68rjjcGnQneocvc1RKr7BGbi1DExwzo='",
       ],
     },
-    reportOnly: true,
   })
 );
 app.use(cors());
