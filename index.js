@@ -60,7 +60,7 @@ app.use(
         "'sha256-g+UP/vt9mFqolp4Cub83kTo3tCFSrr4HGdkDDILeKlU='",
         "'sha256-K/P4vySSqAL7Jr8YdHhzMcc45ilQnfENZTH5hN+mrI4='",
         "'sha256-yl6bksMOnBDEarIhlOKXAsJ4uKcIsFCIF9/B1d2eijs='",
-        "http://localhost:5000/unfetch.umd.js.map",
+        "'sha256-EwZt+briZJ49qid8hchWXcbdXoa9sGe0fvGQ976zsNo='",
       ],
       styleSrc: [
         "'sha256-V0UyiQHqFDE5wbdbh2pF2po6spi3uBNG0LVgNav5Cb8='",
