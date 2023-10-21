@@ -7,8 +7,6 @@ const helmet = require("helmet");
 const jwt = require("express-jwt");
 const jwks = require("jwks-rsa");
 const jwtAuthz = require("express-jwt-authz");
-const axios = require("axios");
-const cheerio = require("cheerio");
 
 const port = process.env.PORT;
 const env = process.env.SERVER_ENV;
@@ -88,37 +86,6 @@ app.get("/", (req, res) => {
     version: "0.0.1",
     message: `Hello Client, Server here from ${env}!`,
   });
-});
-
-// Public API
-app.get("/quote", (req, res) => {
-  // date=september-21-2021
-  const date = req.query.date;
-  const url = QuoteBaseUrl + `/${date}`;
-  const datePattern =
-    /^((january|february|march|april|may|june|july|august|september|october|november|december)-(0[1-9]|[12]\d|3[01])-[12]\d{3})$/;
-
-  if (datePattern.test(date)) {
-    axios(url)
-      .then((response) => {
-        const html = response.data;
-        const $ = cheerio.load(html);
-        const quote = $(QuoteSelector).html().trim();
-        return res.status(200).json({
-          date,
-          quote,
-        });
-      })
-      .catch((error) =>
-        res.status(500).json({
-          message: error,
-        })
-      );
-  } else {
-    return res.status(400).json({
-      message: "date parameter not valid! Example: date?=september-21-2021",
-    });
-  }
 });
 
 // Protected API
